@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ImageUploader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-style navbar-light bg-white shadow-sm px-4">
+      <a href="#" class="d-flex align-items-center">
+         <img src="{{ url_for('static', filename='20260219_2146_CortexCrew Logo Design_simple_compose_01khvays8xesfrh5xf3zp63ae1.png') }}"
+         alt="Logo"
+         style="height:60px"
+        />
+      </a>
+
+      <div>
+        <a
+          href="#"
+          id="posts-btn"
+          style="text-decoration: none"
+          class="nav-links mr-2"
+        >
+          Posts
+        </a>
+
+        <a
+          href="#"
+          id="history-toggle"
+          style="text-decoration: none"
+          class="nav-links mr-3"
+        >
+          Uploaded History
+          <span id="image-count" class="badge badge-light ml-1">0</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- SIDEBAR -->
+    <div id="history-sidebar" class="history-sidebar">
+      <div class="history-header">
+        <h5 style="font-weight: 700">Uploaded History</h5>
+        <i id="close-history" class="fa-solid fa-xmark"></i>
+      </div>
+
+      <div class="search-wrapper">
+        <input
+          type="text"
+          id="search-history"
+          class="search-input"
+          placeholder="Search image..."
+        />
+
+        <span id="clear-search" class="clear-search">&times;</span>
+      </div>
+
+      <div id="history-list" class="history-list"></div>
+
+      <button id="clear-history" class="btn btn-danger clear-bottom">
+        Clear History
+      </button>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div
+      class="container d-flex justify-content-center align-items-center"
+      style="min-height: 90vh"
+    >
+      <div class="card p-4 text-center upload-card">
+        <h4>Upload Your Image</h4>
+
+        <form class="upload-form">
+          <input id="upload" type="file" accept="image/*" hidden required />
+
+          <div id="drop-zone" class="upload-box">
+            <i
+              id="upload-icon"
+              class="fa-solid fa-file-arrow-up upload-icon"
+            ></i>
+
+            <img id="preview-image" />
+
+            <p id="file-name" style="font-size: 15px; font-weight: 500">
+              Click or Drag & Drop image
+            </p>
+          </div>
+
+          <button type="submit" class="upload-btn mt-3">Upload</button>
+          <p class="status-msg" id="statusMsg"></p>
+        </form>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>

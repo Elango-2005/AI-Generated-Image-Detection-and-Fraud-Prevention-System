@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Verified Real Images</title>
+
+<meta charset="UTF-8">
+
+<link rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<style>
+
+body {
+   background: #0f172a;
+   display:flex;
+   flex-direction:column;
+   justify-content:flex-start;
+   align-items:center;
+}
+
+.post-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.post-img {
+
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    cursor: pointer;
+
+}
+
+.post-img:hover {
+    transform: scale(1.05);
+}
+
+.select-box {
+
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transform: scale(1.3);
+    z-index: 5;
+    cursor: pointer;
+
+}
+
+.controls {
+    justify-self:flex-end;
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.image-modal {
+
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+
+}
+
+.image-modal img {
+
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+
+}
+
+.confidence {
+
+    font-size: 14px;
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+
+}
+.image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.image-modal img {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+/* ✅ CLOSE BUTTON */
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 2001;
+}
+
+.modal-close:hover {
+  color: #ff4d4d;
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<h2 class="text-center mb-4" style="color:#ffffff; font-weight:700;">Verified Real Images</h2>
+
+<div class="row" id="posts-container"></div>
+
+</div>
+<div class="controls">
+
+<a href="/" class="btn btn-primary">
+Back
+</a>
+
+</div>
+
+<!-- IMAGE MODAL -->
+<div id="image-modal" class="image-modal">
+
+  <!-- CLOSE BUTTON -->
+  <span id="modal-close" class="modal-close">&times;</span>
+
+  <img id="modal-image">
+
+</div>
+
+
+<script>
+    const modal = document.getElementById("image-modal");
+    const modalImg = document.getElementById("modal-image");
+    const modalClose = document.getElementById("modal-close");
+
+/* OPEN MODAL */
+function openModal(src)
+{
+    modal.style.display = "flex";
+    modalImg.src = src;
+}
+
+/* CLOSE BUTTON */
+modalClose.onclick = function()
+{
+    modal.style.display = "none";
+}
+
+/* CLICK OUTSIDE CLOSE */
+modal.onclick = function(e)
+{
+    if(e.target === modal)
+    {
+        modal.style.display = "none";
+    }
+}
+
+/* ESC KEY CLOSE */
+document.addEventListener("keydown", function(e)
+{
+    if(e.key === "Escape")
+    {
+        modal.style.display = "none";
+    }
+});
+
+
+async function loadPosts() {
+
+  try {
+
+    const response = await fetch("/get_real_images");
+    const posts = await response.json();
+
+    const container = document.getElementById("posts-container");
+    container.innerHTML = "";
+
+    if (!posts.length) {
+      container.innerHTML =
+        "<div class='col-12 text-center'>No verified images found</div>";
+      return;
+    }
+
+    posts.forEach(post => {
+
+      const col = document.createElement("div");
+      col.className = "col-md-3 mb-4";
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "post-wrapper";
+
+      const img = document.createElement("img");
+
+      // ✅ FIX IS HERE
+      img.src = "data:image/jpeg;base64," + post.image_data;
+
+      img.className = "post-img";
+
+      img.onclick = () => {
+        document.getElementById("image-modal").style.display = "flex";
+        document.getElementById("modal-image").src =
+          "data:image/jpeg;base64," + post.image_data;
+      };
+
+      wrapper.appendChild(img);
+      col.appendChild(wrapper);
+      container.appendChild(col);
+
+    });
+
+  }
+  catch (err) {
+    console.error(err);
+  }
+
+}
+
+loadPosts();
+</script>
+
+
+</body>
+
+</html>

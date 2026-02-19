@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap");
+
+body {
+  background: #0f172a;
+  color: white;
+  transition: 0.3s ease;
+  font-family: "Roboto";
+}
+.navbar-style{
+  height: 80px !important;
+  background-color: #1e293b !important;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-links{
+  color:#ffffff; 
+  font-size:16px; 
+  font-weight:600;
+}
+/* Upload Card */
+.upload-card {
+  background: #1e293b;
+  color: white;
+  width: 420px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+/* Upload Box */
+.upload-box {
+  width: 260px;
+  height: 260px;
+  border: 3px dashed #2563eb;
+  border-radius: 20px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.upload-box:hover {
+  transform: scale(1.05);
+}
+.upload-btn{
+    padding: 10px 50px;
+  font-size: 17px;
+  color: white;
+  background:#2563eb;
+  border: 2.2px solid transparent;
+  border-radius: 50px;
+  margin-top: 30px;
+  margin-right: 50px;
+  margin-left: 50px;
+  transition: all 0.4s ease-out;
+  box-shadow: 0 4px 12px rgba(123, 43, 214, 0.3);
+}
+.upload-btn:hover{
+  transform: translateY(6px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(71, 71, 71, 0.6);
+}
+.upload-icon {
+  font-size: 60px;
+  color: #2563eb;
+}
+
+#preview-image {
+  max-width: 90%;
+  max-height: 150px;
+  display: none;
+  border-radius: 10px;
+}
+
+#file-name {
+  margin-top: 10px;
+}
+
+/* SIDEBAR */
+.history-sidebar {
+  position: fixed;
+  top: 0;
+  right: -350px;              /* hidden by default */
+  width: 320px;
+  height: 100%;
+  background: #1e293b;
+  color: white;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.history-sidebar.active {
+  right: 0;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.history-header h5 {
+  margin: 0;
+  font-weight: 600;
+}
+
+#close-history {
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+#close-history:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.clear-bottom {
+  margin-top: auto;
+}
+
+/* Search */
+.search-wrapper {
+  position: relative;
+  margin-top: 10px;
+}
+
+.search-input {
+  background: #334155;
+  color: white;
+  border:1px solid #475569;
+  width: 100%;
+  padding: 8px 30px 8px 12px;
+  border-radius: 20px;
+}
+
+.clear-search {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  cursor: pointer;
+  display: none;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(5px);
+  background: rgba(0,0,0,0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s ease;
+  z-index: 900;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* status msg */
+
+.status {
+  font-size: 15px;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.status.loading {
+  background-color: #e3f2fd;
+  color: #0d6efd;
+}
+
+.status.ai {
+  background-color: #ffe5e5;
+  color: #d00000;
+}
+
+.status.real {
+  background-color: #e6ffed;
+  color: #1b7f3a;
+}
+
+.status.suspicious {
+  background-color: #fff4e5;
+  color: #b36b00;
+}
+
+.status.error {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
